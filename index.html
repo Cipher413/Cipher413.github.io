@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Page Title</title>
+	</head>
+	<body onload="refresh()" onkeypress="move(event);">
+	    <p id="txt"></p>
+	    <p id="info"></p>
+<script>
+function pR(array){return array[Math.round(Math.random()*(array.length-1))];}   
+function chance(prob){n=Math.round(Math.random()*100);if (prob>n){return true}}
+function write(id, doc){document.getElementById(id).innerHTML=(doc)}
+function writeadd(id, doc){document.getElementById(id).innerHTML+=(doc)}
+function rInt(max) {return Math.floor(Math.random() * Math.floor(max));}
+function nl(){writeadd("txt", "<br>")}
+function erase(){write("txt", "")}
+var cdr = "\&boxdr;";
+var cdl = "\&boxdl;";
+var cur = "\&boxur;";
+var cul = "\&boxul;";
+var hl = "\&boxh;";
+var vl = "\&boxv;";
+var bkg = "\&blk14;";
+var br = "<br>";
+var nbsp = "\&nbsp;";
+var vlr = "├";
+var vll = "┤";
+var hlu = "┴";
+var hld = "┬";
+var omni = "┼";
+
+var upblock = hl + hld;
+var downblock = hl + hlu;
+var rows = 6;
+var columns = 12;
+var num = 1;
+var mcnum = 45;
+var monstnum = 30;
+var mccolumn = 0;
+var mcrow = 0;
+var blocknum = [1, 2, 7];
+
+function info(){write("info", `MCnum: ${mcnum} <br> Coordinates: ${mccolumn};${mcrow}`);}
+function refresh() {erase();calculate();num = 1;main();}
+function main() {for (g = 0; g <= 0; g++) {writerow()}info();}
+function writerow() {
+	writeadd("txt", cdr + upblock.repeat(columns - 1) + hl + cdl);
+	nl();
+	writeadd("txt", vl);
+	for (r = 0; r <= columns - 1; r++) {
+		if (num == mcnum) {
+			writeadd("txt", "U" + vl);
+			num++;
+			continue;
+		} else if (num == monstnum) {
+			writeadd("txt", "m" + vl);
+		} else if (num == blocknum[0]) {
+			writeadd("txt", "B" + vl);
+			num++;
+			continue;
+		} else writeadd("txt", bkg + vl);
+		num++;
+	}
+	nl();
+	for (i = 0; i <= rows - 2; i++) {
+		writeadd("txt", vlr + (hl + omni).repeat(columns - 1) + hl + vll);nl();
+		writeadd("txt", vl);
+		for (e = 0; e <= columns - 1; e++) {
+			if (num == mcnum) {
+				writeadd("txt", "U" + vl);
+				num++;
+				continue;
+			} else if (num == monstnum) {
+				writeadd("txt", "m" + vl);
+			} else if (num == blocknum[0]) {
+				writeadd("txt", "B" + vl);
+				num++;
+				continue;
+			} else writeadd("txt", bkg + vl);
+			num++;
+		}
+		nl();
+	}
+	writeadd("txt", cur + downblock.repeat(columns - 1) + hl + cul);
+	nl();
+}
+
+function calculate() {
+	mccolumn = (mcnum - 1) % columns + 1;
+	mcrow = Math.floor((mcnum - 1) / columns) + 1;
+}
+
+function move(event) {
+	var x = event.charCode || event.keyCode;
+	var y = String.fromCharCode(x);
+	switch (y) {
+		case "w":
+			if (mcnum > columns) {
+				mcnum -= columns;
+			}
+			break;
+		case "a":
+			if (mccolumn != 1) {
+				mcnum -= 1;
+			}
+			break;
+		case "s":
+			if (mcrow != rows) {
+				mcnum += columns;
+			}
+			break;
+		case "d":
+			if (mccolumn != columns) {
+				mcnum += 1;
+			}
+			break;
+	}
+	refresh();
+}
+</script>
+<style>body {
+    font-family: "Poor rd", Courier, monospace;
+}
+button{
+    width: 50px;
+    height:50px;
+}</style>
+	</body>
+</html>
