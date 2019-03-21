@@ -25,53 +25,39 @@ button {background-color:#ded; padding:2px; margin:1px;}
 		<br><br>
 		<button onclick="reset()"><b>RESET</b></button><button onclick="test()"><b>TEST</b></button>
 		<p>placeholder</p>
-		<script>function setCookie(key, value) {
-            var expires = new Date();
-            expires.setTime(expires.getTime() + (1 * 24 * 60 * 60 * 1000));
-            document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
-        }
-
-        function getCookie(key) {
-            var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
-            return keyValue ? keyValue[2] : null;
-        }
+		<script>function setCookie(key, value) {var expires = new Date();expires.setTime(expires.getTime() + (1 * 24 * 60 * 60 *1000));document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();}
+function getCookie(key) {var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');return keyValue ? keyValue[2] : null;}
 function reset(){H=0}
 function test(){console.log(H)}
-    //c==>create m==>make s==>sell b=>buy *m==>maker *c==>creator bo==>bonus
+//c==>create m==>make s==>sell b=>buy *m==>maker *c==>creator bo==>bonus
 var H=0; var Hc=0; var Hm=1;
 var He=0; var Hef=0; var Hes=0;
 var money=0; var i=1;
 var b="<br>";var s=" ";
-var Hcbo1=false; var Hcbo2=false;
+var Hcbo1=false; var Hcbo2=false; var firsttime=true;
 setInterval(timer, 1000);
 
 function load(){
-    	loadH=parseInt(getCookie("H"))
-    		if(loadH!=undefined){H=loadH}
-	
-	loadHe=parseInt(getCookie("He"))
-    		if(loadHe!=undefined){He=loadHe}
-	loadHc=parseInt(getCookie("Hc"))
-    		if(loadHc!=undefined){Hc=loadHc}
-	loadHm=parseInt(getCookie("Hm"))
-    		if(loadHm!=undefined){Hm=loadHm}
-	loadHef=parseInt(getCookie("Hef"))
-    		if(loadHef!=undefined){Hef=loadHef}
-	loadHes=parseInt(getCookie("Hes"))
-    		if(loadHes!=undefined){Hes=loadHes}
-	loadmoney=parseInt(getCookie("money"))
-    		if(loadmoney!=undefined){money=loadmoney}
+    H=parseInt(getCookie("H"))
+    He=parseInt(getCookie("He"))
+    Hc=parseInt(getCookie("Hc"))
+    Hef=parseInt(getCookie("Hef"))
+    Hes=parseInt(getCookie("Hes"))
+    Hm=parseInt(getCookie("Hm"))
+    money=parseInt(getCookie("money"))
     UI()
+    console.log("L")
 }
 
 function save(){
-    	setCookie("H", H)
-   	setCookie("He", He)
-	setCookie("Hef", Hef)
-	setCookie("Hes", Hes)
-	setCookie("Hc", Hc)
-	setCookie("Hm", Hm)
-	setCookie("money", money)
+    setCookie("H", H)
+    setCookie("Hc", Hc)
+    setCookie("He", He)
+    setCookie("Hef", Hef)
+    setCookie("Hes", Hes)
+    setCookie("Hm", Hm)
+    setCookie("money", money)
+    console.log("s")
 }
 
 function timer(){
