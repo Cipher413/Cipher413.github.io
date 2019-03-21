@@ -23,7 +23,7 @@ button {background-color:#ded; padding:2px; margin:1px;}
 		<button class="popup" id="Hcbo1" onclick="bHcbo(1)">Buy 4x H Creator bonus (20H, 5He, 5$)</button>
 		<button class="popup" id="Hcbo2" onclick="bHcbo(2)">Buy 25x H Creator bonus (200H, 50He, 50$)</button>
 		<br><br>
-		<p>placeholder</p>
+		<p>placeholder1</p>
 		<script>//c==>create m==>make s==>sell b=>buy *m==>maker *c==>creator bo==>bonus
 var H=0; var Hc=0; var Hm=1;
 var He=0; var Hef=0; var Hes=0;
@@ -39,9 +39,9 @@ var save = {
 };
 var savegame = JSON.parse(localStorage.getItem("save"));
 function load(){
-    if (typeof savegame.H !== "undefined"){H = savegame.H;}
-    if (typeof savegame.He !== "undefined"){ H = savegame.He;}
-    if (typeof savegame.money !== "undefined"){ H = savegame.money;}
+    if ( savegame.H !== "undefined"){H = savegame.H;}
+    if ( savegame.He !== "undefined"){ H = savegame.He;}
+    if ( savegame.money !== "undefined"){ H = savegame.money;}
     console.log("load()");
 }
 function timer(){
