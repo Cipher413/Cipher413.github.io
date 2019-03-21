@@ -4,14 +4,23 @@
 		<title>Chem Clicker v0.412</title>
 		<script src="https://cdn.jsdelivr.net/gh/Cipher413/cipher413.github.io/library.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	</head>
 	<body onload="load()">
 	    <style>body {font-family: "Poor rd", Courier, monospace; background-color:#beb}
 h1 {text-align: center;}
-button {background-color:#ded; padding:2px; margin:1px;}
+button {background-color:#ded; padding:2px; margin:1px; width:20%;}
 #intro {text-align: center; font-weight:bold;}
+#options {padding:8px;}
 .popup {display:none;}</style>
-		<h1>Chem Clicker</h1>
+		<div id="main">
+        <h1>
+            
+Chem Clicker </h1> </div>
 		<p id="intro">Make a star (1E55 H)</p>
 		<p id="stats"></p>
 		<button onclick="cH()">Create Hydrogen</button> 
@@ -21,7 +30,25 @@ button {background-color:#ded; padding:2px; margin:1px;}
 		<button onclick="sHe()">Sell Helium</button>
 		<button onclick="bHes()">Buy Helium seller</button><br><br>
 		<button class="popup" id="Hcbo1" onclick="bHcbo(1)">Buy 4x H Creator bonus (20H, 5He, 5$)</button>
-		<button class="popup" id="Hcbo2" onclick="bHcbo(2)">Buy 25x H Creator bonus (200H, 50He, 50$)</button>
+		<button class="popup" id="Hcbo2" onclick="bHcbo(2)">Buy 25x H Creator bonus (200H, 50He, 50$)</button><br><br>
+		<div class="container">
+  <button class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Options</button>
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Options</h4>
+        </div>
+        <div class="modal-body">
+          <p><button onclick="switchHef()">Stop/start foundries</button></p>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div> 
 		<br><br>
 		<button onclick="reset()"><b>RESET</b></button><button onclick="test()"><b>TEST</b></button>
 		<p>placeholder</p>
@@ -30,11 +57,10 @@ function getCookie(key) {var keyValue = document.cookie.match('(^|;) ?' + key + 
 function reset(){H=0; He=0; Hc=0; Hm=1; Hes=0; Hef=0; money=0}
 function test(){console.log(H)}
 //c==>create m==>make s==>sell b=>buy *m==>maker *c==>creator bo==>bonus
-var i=1;
+var i=1; Hefon=true
 var b="<br>";var s=" ";
 var Hcbo1=false; var Hcbo2=false; var firsttime=true;
 setInterval(timer, 1000);
-
 function load(){
     H=parseInt(getCookie("H"));if ((getCookie("H"))===null){H=0}
     He=parseInt(getCookie("He"));if ((getCookie("He"))===null){He=0}
@@ -46,7 +72,6 @@ function load(){
     UI()
     console.log((getCookie("H")))
 }
-
 function save(){
     setCookie("H", H)
     setCookie("Hc", Hc)
@@ -56,11 +81,10 @@ function save(){
     setCookie("Hm", Hm)
     setCookie("money", money)
 }
-
 function timer(){
     H+=Hc*Hm;
     i=1;
-    while(H>=4&i<=Hef){if(H/4>=1){H-=4;He++} i++}
+    while(H>=4&i<=Hef&Hefon){if(H/4>=1){H-=4;He++} i++}
     i=1;
     while(He>=1&i<=Hes){if(He>=1){money++;He--} i++}
     UI();
@@ -72,7 +96,6 @@ function sHe(){if(He>=1){He--; money++}UI()}
 function bHef(){if(money>=5){money-=5;Hef++}UI()}
 function bHc(){if (money>=5){money-=5;Hc++;UI()}}
 function bHes(){if (money>=5){money-=5;Hes++;UI()}}
-
 function bHcbo(tier){switch(tier){
     case 1:
         if(H>=20&&He>=5&&money>=5){H-=20; He-=5; money-=5;Hm*=4;$("#Hcbo1" ).remove();UI()}
@@ -81,12 +104,12 @@ function bHcbo(tier){switch(tier){
         if(H>=200&&He>=50&&money>=50){H-=200; He-=50; money-=50;Hm*=25;$("#Hcbo2" ).remove();UI()}
         break;
 }}
-
+function switchHef(){Hefon=!Hefon; console.log(Hefon)}
+function toOptions(){}
 function UI(){
     check();
     write("stats",  "H :"+H+s+`Hc:${Hc} Hm:${Hm} HpS:${Hm*Hc}<br> He:${He} Hef:${Hef} Hes:${Hes}<br> $:${money}`);
 }
-
 function check(){
     if(H>=15&&Hcbo1===false){document.getElementById("Hcbo1").style.display = "block"; Hcbo1=true}
     if(H>=50&&Hcbo2===false){document.getElementById("Hcbo2").style.display = "block"; Hcbo2=true}
