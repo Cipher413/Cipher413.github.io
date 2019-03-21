@@ -23,8 +23,21 @@ button {background-color:#ded; padding:2px; margin:1px;}
 		<button class="popup" id="Hcbo1" onclick="bHcbo(1)">Buy 4x H Creator bonus (20H, 5He, 5$)</button>
 		<button class="popup" id="Hcbo2" onclick="bHcbo(2)">Buy 25x H Creator bonus (200H, 50He, 50$)</button>
 		<br><br>
-		<p>placeholder1</p>
-		<script>//c==>create m==>make s==>sell b=>buy *m==>maker *c==>creator bo==>bonus
+		<button onclick="reset()"><b>RESET</b></button><button onclick="test()"><b>TEST</b></button>
+		<p>placeholder</p>
+		<script>function setCookie(key, value) {
+            var expires = new Date();
+            expires.setTime(expires.getTime() + (1 * 24 * 60 * 60 * 1000));
+            document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
+        }
+
+        function getCookie(key) {
+            var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+            return keyValue ? keyValue[2] : null;
+        }
+function reset(){H=0}
+function test(){console.log(H)}
+    //c==>create m==>make s==>sell b=>buy *m==>maker *c==>creator bo==>bonus
 var H=0; var Hc=0; var Hm=1;
 var He=0; var Hef=0; var Hes=0;
 var money=0; var i=1;
@@ -32,18 +45,15 @@ var b="<br>";var s=" ";
 var Hcbo1=false; var Hcbo2=false;
 setInterval(timer, 1000);
 
-var save = {
-    H: H,
-    He: He,
-    money: money
-};
-var savegame = JSON.parse(localStorage.getItem("save"));
-function load(){
-    if ( savegame.H !== "undefined"){H = savegame.H;}
-    if ( savegame.He !== "undefined"){ H = savegame.He;}
-    if ( savegame.money !== "undefined"){ H = savegame.money;}
-    console.log("load()");
+function save(){
+    setCookie("H",H);
+    console.log("Save")
 }
+function load(){
+    if(getCookie("H")!==0){H=getCookie("H")}
+    console.log("Load");
+}
+
 function timer(){
     H+=Hc*Hm;
     i=1;
@@ -51,7 +61,7 @@ function timer(){
     i=1;
     while(He>=1&i<=Hes){if(He>=1){money++;He--} i++}
     UI();
-    localStorage.setItem("save",JSON.stringify(save));
+    if(chance(50)){save();}
 }
 function cH(){H++;UI()}
 function mHe(){if(H>=4){H-=4;He++}UI()}
