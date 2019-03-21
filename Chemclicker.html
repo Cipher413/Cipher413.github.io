@@ -46,15 +46,32 @@ var Hcbo1=false; var Hcbo2=false;
 setInterval(timer, 1000);
 
 function load(){
-    loadH=getCookie("Hydrogen")
-    loadH=parseInt(loadH)
-    if(loadH!=undefined){H=loadH}
+    	loadH=parseInt(getCookie("H"))
+    		if(loadH!=undefined){H=loadH}
+	
+	loadHe=parseInt(getCookie("He"))
+    		if(loadHe!=undefined){He=loadHe}
+	loadHc=parseInt(getCookie("Hc"))
+    		if(loadHc!=undefined){Hc=loadHc}
+	loadHm=parseInt(getCookie("Hm"))
+    		if(loadHm!=undefined){Hm=loadHm}
+	loadHef=parseInt(getCookie("Hef"))
+    		if(loadHef!=undefined){Hef=loadHef}
+	loadHes=parseInt(getCookie("Hes"))
+    		if(loadHes!=undefined){Hes=loadHes}
+	loadmoney=parseInt(getCookie("money"))
+    		if(loadmoney!=undefined){money=loadmoney}
     UI()
 }
 
 function save(){
-    H.toString()
-    setCookie("Hydrogen", H)
+    	setCookie("H", H)
+   	setCookie("He", He)
+	setCookie("Hef", Hef)
+	setCookie("Hes", Hes)
+	setCookie("Hc", Hc)
+	setCookie("Hm", Hm)
+	setCookie("money", money)
 }
 
 function timer(){
