@@ -5,7 +5,7 @@
 		<script src="https://cdn.jsdelivr.net/gh/Cipher413/cipher413.github.io/library.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	</head>
-	<body onload="UI(); load()">
+	<body onload="load()">
 	    <style>body {font-family: "Poor rd", Courier, monospace; background-color:#beb}
 h1 {text-align: center;}
 button {background-color:#ded; padding:2px; margin:1px;}
@@ -30,23 +30,21 @@ function getCookie(key) {var keyValue = document.cookie.match('(^|;) ?' + key + 
 function reset(){H=0}
 function test(){console.log(H)}
 //c==>create m==>make s==>sell b=>buy *m==>maker *c==>creator bo==>bonus
-var H=0; var Hc=0; var Hm=1;
-var He=0; var Hef=0; var Hes=0;
-var money=0; var i=1;
+var i=1;
 var b="<br>";var s=" ";
 var Hcbo1=false; var Hcbo2=false; var firsttime=true;
 setInterval(timer, 1000);
 
 function load(){
-    H=parseInt(getCookie("H"))
-    He=parseInt(getCookie("He"))
-    Hc=parseInt(getCookie("Hc"))
-    Hef=parseInt(getCookie("Hef"))
-    Hes=parseInt(getCookie("Hes"))
-    Hm=parseInt(getCookie("Hm"))
-    money=parseInt(getCookie("money"))
+    H=parseInt(getCookie("H"));if ((getCookie("H"))===null){H=0}
+    He=parseInt(getCookie("He"));if ((getCookie("He"))===null){He=0}
+    Hc=parseInt(getCookie("Hc"));if ((getCookie("Hc"))===null){Hc=0}
+    Hef=parseInt(getCookie("Hef"));if ((getCookie("Hef"))===null){Hef=0}
+    Hes=parseInt(getCookie("Hes"));if ((getCookie("Hes"))===null){Hes=0}
+    Hm=parseInt(getCookie("Hm"));if ((getCookie("Hm"))===null){Hm=1}
+    money=parseInt(getCookie("money"));if ((getCookie("money"))===null){money=0}
     UI()
-    console.log("L")
+    console.log((getCookie("H")))
 }
 
 function save(){
@@ -57,7 +55,6 @@ function save(){
     setCookie("Hes", Hes)
     setCookie("Hm", Hm)
     setCookie("money", money)
-    console.log("s")
 }
 
 function timer(){
@@ -87,7 +84,7 @@ function bHcbo(tier){switch(tier){
 
 function UI(){
     check();
-    write("stats",  "H :"+H+s+`Hc:${Hc} Hm:${Hm} <br> He:${He} Hef:${Hef} Hes:${Hes}<br> $:${money}`);
+    write("stats",  "H :"+H+s+`Hc:${Hc} Hm:${Hm} HpS:${Hm*Hc}<br> He:${He} Hef:${Hef} Hes:${Hes}<br> $:${money}`);
 }
 
 function check(){
@@ -95,4 +92,3 @@ function check(){
     if(H>=50&&Hcbo2===false){document.getElementById("Hcbo2").style.display = "block"; Hcbo2=true}
 }</script>
 	</body>
-</html>
