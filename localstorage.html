@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Page Title</title>
+	</head>
+	<body>
+	<input type="text" id="myText" value="Some text...">
+	<button onclick="dataGive()">Give Data</button>	
+	<br><br>
+	<button onclick="dataGet()">Get Data</button>
+	<script>
+	function dataGive(){
+	    var x = document.getElementById("myText").value;
+	    localStorage.setItem("key1", x)}
+	function dataGet(){
+	    var y = document.getElementById("myText").value;
+	    alert(localStorage.getItem("key1"))
+	}
+	</script>
+	</body>
+</html>
