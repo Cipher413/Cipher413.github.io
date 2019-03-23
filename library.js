@@ -9,3 +9,6 @@ function factorial(n){if(n===0){return 1}else m=n;while(m>1){m--;n*=m;}return n}
 function divisors(n){var i=1;while (i<=n){if(n%i===0){document.writeln(i)};i++}}
 function setCookie(key, value) {var expires = new Date();expires.setTime(expires.getTime() + (1 * 24 * 60 * 60 * 1000));document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();}
 function getCookie(key) {var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');return keyValue ? keyValue[2] : null;}
+function disappear(id){$(function() {var e = $(id);e.css("display", "none");});}
+function appear(id){$(function() {var e = $(id);e.css("display", "block");});}
+function switcha(id1, id2){disappear(id1);appear(id2)}
