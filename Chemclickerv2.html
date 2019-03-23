@@ -1,8 +1,7 @@
-
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Chem Clicker v0.412</title>
+		<title>Chem Clicker v0.1.413</title>
 		<script src="https://cdn.jsdelivr.net/gh/Cipher413/cipher413.github.io/library.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	</head>
@@ -27,16 +26,16 @@ button {background-color:#ded; padding:2px; margin:1px; width:25%; height:15%;}
 		<button onclick="bHc()">Buy Hydrogen creator (5$)</button>
 		<button onclick="bbHc()">Buy Hydrogen creator Buyer(5$)</button><br><br>
 		<button onclick="mHe()">Fuse Hydrogen into Helium (4->1)</button>
-		<button onclick="bHef()">Buy Hydrogen foundry (5$)</button>
-		<button onclick="bbHef()">Buy Hydrogen foundry Buyer (5$)</button><br><br>
+		<button onclick="bHef()">Buy Helium foundry (5$)</button>
+		<button onclick="bbHef()">Buy Helium foundry Buyer (5$)</button><br><br>
 		<button onclick="sHe()">Sell Helium</button>
 		<button onclick="bHes()">Buy Helium seller</button>
 		<button onclick="bbHes()">Buy Helium seller Buyer (5$)</button><br><br>
 		</div>
 		<div id="options">
-		<button onclick=switchHef()>Turn On/Off Helium Foundries <br> [ON]</button>
-		<button onclick=switchHes()>Turn On/Off Helium Sellers <br> [ON]</button>
-		<button onclick=switchHefb()>Turn On/Off Hydrogen Foundries Buyers<br> [ON]</button><br><br>
+		<button id="switchHef" onclick=switchHef()>Turn On/Off Helium Foundries <br> [ON]</button>
+		<button id="switchHes" onclick=switchHes()>Turn On/Off Helium Sellers <br> [ON]</button>
+		<button id="switchHefb" onclick=switchHefb()>Turn On/Off Helium Foundries Buyers<br> [ON]</button><br><br>
 		</div>
 		<div id="upgrades">
 		<button id="HCB1" onclick="HCB1()">4x Hydrogen Creator Bonus (20H)</button>
@@ -99,15 +98,25 @@ function bHef(){if(money>=5){money-=5;Hef++}UI()}
 function bbHef(){if(money>=5){money-=5;Hefb++}UI()}
 function bHc(){if (money>=5){money-=5;Hc++;UI()}}
 function bHes(){if (money>=5){money-=5;Hes++;UI()}}
-function switchHef(){Hefon=!Hefon;}
-function switchHefb(){Hefbon=!Hefbon;}
-function switchHes(){Heson=!Heson;}
+function switchHef(){Hefon=!Hefon; secondaryUI()}
+function switchHefb(){Hefbon=!Hefbon; secondaryUI()}
+function switchHes(){Heson=!Heson; secondaryUI()}
 function UI(){
     write("stats",  "H :"+H+s+`Hc:${Hc} Hm:${Hm} HpS:${Hm*Hc}<br> He:${He} Hef:${Hef} Hes:${Hes}<br>
      Hefb:${Hefb}<br>$:${money}`);
     if (sHCB1){disappear("#HCB1")}
     if (!sHCB1){appear("#HCB1")}
     save()
+}
+function secondaryUI(){
+    if (Hefon){write("switchHef", "Turn On/Off Helium Foundries <br> [ON]")}
+    else write("switchHef", "Turn On/Off Helium Foundries <br> [OFF]")
+    
+    if (Heson){write("switchHes", "Turn On/Off Helium Sellers <br> [ON]")}
+    else write("switchHes", "Turn On/Off Helium Sellers <br> [OFF]")
+    
+    if (Hefbon){write("switchHefb", "Turn On/Off Helium Foundries Buyers <br> [ON]")}
+    else write("switchHefb", "Turn On/Off Helium Foundries Buyers <br> [OFF]")
 }
 function HCB1(){if (H>=20){H-=20;Hm*=4; sHCB1=true; UI()}}
 disappear("#options")
