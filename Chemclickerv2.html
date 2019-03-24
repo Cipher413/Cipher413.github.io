@@ -44,17 +44,18 @@ button {background-color:#ded; padding:2px; margin:1px; width:30%; height:25%;}
 		</div>
 		<button class="smallbuttons" onclick="reset()"><b>RESET</b></button>
 		<button class="smallbuttons" onclick="test()"><b>TEST</b></button>
+		<button class="smallbuttons" id="prestige" onclick="ascend()"><b>PRESTIGE (0)</b></button>
 		<p>placeholder</p>
 		<script>function setCookie(key, value) {var expires = new Date();expires.setTime(expires.getTime() + (1 * 24 * 60 * 60 *1000));document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();}
 function getCookie(key) {var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');return keyValue ? keyValue[2] : null;}
 function disappear(id){$(function() {var e = $(id);e.css("display", "none");});}
 function appear(id){$(function() {var e = $(id);e.css("display", "block");});}
 function switcha(id1, id2, id3){appear(id1);disappear(id2);disappear(id3)}
-function reset(){H=0; He=0; Hc=0; Hm=1; Hes=0; Hef=0; money=0; sHCB1=false; setCookie("sHCB1", false); UI()}
-function test(){H++;He++;money++;Hc++;Hef++;Hes++}
+function reset(){H=0; He=0; Hc=0; Hm=1; Hes=0; Hef=0; money=0; sHCB1=false; setCookie("sHCB1", false); Hcb=0; Hesb=0; Hefb=0; UI()}
+function test(){H+=20;He+=5;money+=5;}
 //c==>create m==>make s==>sell b=>buy *m==>maker *c==>creator bo==>bonus
 var i=1; Hefon=true; Heson=true; var Hefb=0; var Hefbon=true;var Hesbon=true;var Hcbon=true;
-var b="<br>";var s=" ";var Hcb=0; var Hesb=0
+var b="<br>";var s=" ";var Hcb=0; var Hesb=0;var prestige=0; var dumpedprestige=0
 var firsttime=true;
 var sHCB1=false
 setInterval(timer, 1000);
@@ -100,8 +101,11 @@ function timer(){
     while(money>=5&i<=Hesb&Hesbon){if(money>=5){money-=5;Hes++} i++}
     UI();
 }
-function cH(){H++;UI()}
-function mHe(){if(H>=4){H-=4;He++}UI()}
+function cH(){H+=Hm;UI()}
+function mHe(){
+    i=1;
+    while(i<=Hm){if(H>=4){H-=4;He++} i++}
+}
 function sHe(){if(He>=1){He--; money++}UI()}
 function bHef(){if(money>=5){money-=5;Hef++}UI()}
 function bbHef(){if(money>=5){money-=5;Hefb++}UI()}
@@ -114,12 +118,15 @@ function switchHefb(){Hefbon=!Hefbon; secondaryUI()}
 function switchHes(){Heson=!Heson; secondaryUI()}
 function switchHcb(){Hcbon=!Hcbon; secondaryUI()}
 function switchHesb(){Hesbon=!Hesbon; secondaryUI()}
+function calculate(){prestige=H+(Hc+Hcb+Hef+Hes+Hesb+Hefb)*20+(He+money)*4}
 function UI(){
-    write("stats",  "H :"+H+s+`Hc:${Hc} Hm:${Hm} HpS:${Hm*Hc} Hcb:${Hcb}<br>
+    calculate()
+    write("stats",  `H :${H} Hc:${Hc} Hm:${Hm} HpS:${Hm*Hc-Hef} Hcb:${Hcb}<br>
                     He:${He} Hef:${Hef} Hes:${Hes} Hesb:${Hesb}
                     Hefb:${Hefb}<br>$:${money}`);
     if (sHCB1){disappear("#HCB1")}
     if (!sHCB1){appear("#HCB1")}
+    write("prestige", `<b>Prestige: ${prestige-dumpedprestige}<b>`)
     save()
 }
 function secondaryUI(){
@@ -138,8 +145,19 @@ function secondaryUI(){
     if (Hcbon){write("switchHcb", "Turn On/Off Hydrogen Creators Buyers <br> [ON]")}
     else write("switchHcb", "Turn On/Off Hydrogen Creators Buyers <br> [OFF]")
 }
+function ascend(){
+    if(prestige>dumpedprestige){
+        Hm*=Math.floor(Math.log(prestige-dumpedprestige)*Math.sqrt(prestige-dumpedprestige));
+        H=0;He=0;money=0;Hc=0;Hef=0;Hes=0;Hcb=0;Hefb=0;Hesb=0;
+        dumpedprestige=prestige
+        prestige=0
+    }
+    save()
+    UI()
+}
 function HCB1(){if (H>=20){H-=20;Hm*=4; sHCB1=true; UI()}}
 disappear("#options")
+disappear("#upgrades")
 </script>
 </body>
 </html>
